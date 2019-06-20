@@ -2,10 +2,8 @@ const db = require("../data/dbConfig.js");
 
 module.exports = {
   insert,
-  update,
-  remove,
   getAll,
-  findById
+  remove
 };
 
 function insert(hobbit) {
@@ -20,4 +18,10 @@ function insert(hobbit) {
 
 function getAll() {
   return db("friends");
+}
+
+function remove(id) {
+  return db("friends")
+    .where({ id })
+    .delete();
 }
