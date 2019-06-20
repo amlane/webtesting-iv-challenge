@@ -29,7 +29,11 @@ describe("friends model", () => {
   });
 
   it("should remove the specified friend", async () => {
+    let data = await db("friends");
+    console.log(data);
     const res = await insert({ name: "Chandler" });
+    data = await db("friends");
+    console.log(data);
     await remove(res[0]);
     const friends = await db("friends");
     expect(friends).toHaveLength(0);

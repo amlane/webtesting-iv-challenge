@@ -30,4 +30,16 @@ server.post("/friends", (req, res) => {
     });
 });
 
+server.delete("/friends/:id", (req, res) => {
+  const id = req.params.id;
+  console.log("id", id);
+  Friends.remove(id)
+    .then(deletedFriend => {
+      res.status(204).end();
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 module.exports = server;

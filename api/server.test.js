@@ -1,6 +1,7 @@
 const supertest = require("supertest");
 const server = require("./server.js");
 const { insert } = require("../friends/friendsModel.js");
+const db = require("../data/dbConfig.js");
 
 describe("testing tests", () => {
   it("should be true", () => {
@@ -46,19 +47,22 @@ describe("testing tests", () => {
   });
 
   describe("DELETE /friends", async () => {
-      it("respond with 500 when friend ID doesn't exist", () => {
-        const res = await supertest(server)
-        .delete('/friends/1');
-        expect(res.status).toEqual(500)
-      })
-      it("should respond with a 204 status when friend is successfully deleted", async () => {
-        const friends = { name: "Rachel" };
-        await supertest(server)
-          .post("/friends")
-          .send(friends);
+    beforeEach(async () => {
+      await db("friends").truncate();
+    });
+    //   it("respond with 500 when friend ID doesn't exist", () => {
+    //     const res = await supertest(server)
+    //     .delete('/friends/1');
+    //     expect(res.status).toEqual(500)
+    //   })
+    it("should respond with a 204 status when friend is successfully deleted", async () => {
+      let friends = { name: "Chandler" };
+      await supertest(server)
+        .post("/friends")
+        .send(friends);
 
-          const res = await supertest(server).delete('/friends/1')
-         expect(res.status).toEqual(204);
-      })
-  })
+      let res = await supertest(server).delete("/friends/1");
+      expect(res.status).toEqual(204);
+    });
+  });
 });

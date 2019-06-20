@@ -6,9 +6,9 @@ module.exports = {
   remove
 };
 
-function insert(hobbit) {
+function insert(friend) {
   return db("friends")
-    .insert(hobbit, "id")
+    .insert(friend, "id")
     .then(ids => {
       return db("friends")
         .where({ id: ids[0] })
@@ -21,7 +21,8 @@ function getAll() {
 }
 
 function remove(id) {
+  console.log("here", id);
   return db("friends")
     .where({ id })
-    .truncate();
+    .del();
 }
