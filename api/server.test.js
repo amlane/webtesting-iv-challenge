@@ -20,5 +20,13 @@ describe("testing tests", () => {
           expect(res.body).toEqual({ api: "is alive" });
         });
     });
+
+    it("responds {api: 'is alive'}", () => {
+      return supertest(server)
+        .get("/")
+        .then(res => {
+          expect(res.body).toEqual({ api: "is alive" });
+        });
+    });
   });
 });

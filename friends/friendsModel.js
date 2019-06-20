@@ -23,5 +23,5 @@ function getAll() {
 function remove(id) {
   return db("friends")
     .where({ id })
-    .delete();
+    .del();
 }

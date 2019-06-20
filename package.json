@@ -4,7 +4,7 @@
   "description": "Server Testing Project",
   "main": "server.js",
   "scripts": {
-    "test": "jest --watch --verbose",
+    "test": "cross-env DB_ENV=testing jest --watch",
     "server": "nodemon"
   },
   "jest": {
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "helmet": "^3.18.0",
