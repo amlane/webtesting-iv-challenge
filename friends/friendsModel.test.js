@@ -1,5 +1,5 @@
 const db = require("../data/dbConfig.js");
-const { insert } = require("./friendsModel.js");
+const { insert, remove } = require("./friendsModel.js");
 
 describe("friends model", () => {
   beforeEach(async () => {
@@ -26,5 +26,12 @@ describe("friends model", () => {
       const inserted = await insert(friend);
       expect(inserted.name).toBe(friend.name);
     });
+  });
+
+  it("should remove the specified friend", async () => {
+    const res = await insert({ name: "Chandler" });
+    await remove(res[0]);
+    const friends = await db("friends");
+    expect(friends).toHaveLength(0);
   });
 });

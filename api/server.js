@@ -20,4 +20,14 @@ server.get("/friends", (req, res) => {
     });
 });
 
+server.post("/friends", (req, res) => {
+  Friends.insert(req.body)
+    .then(newFriend => {
+      res.status(201).json(newFriend);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 module.exports = server;
